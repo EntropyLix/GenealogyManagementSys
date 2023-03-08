@@ -1,0 +1,20 @@
+{
+  "login": "admin",
+  "password": "$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC",
+
+  "first_name": "Administrator",
+  "last_name": "Administrator",
+  "email": "admin@localhost",
+  "activated": true,
+  "lang_key": "en",
+  "created_by": "system",
+  "last_modified_by": "system",
+  "authorities": ["ROLE_USER", "ROLE_ADMIN"],
+  "_class": "com.gms.damien.domain.User"
+}
+// match (n:jhi_user {login:'admin'}) set n.password= "$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC"
+
+//   set n.first_name= "Administrator"
+//   set n.last_name="Administrator"
+//   set n.email="admin@localhost"
+//   set n.activated= true

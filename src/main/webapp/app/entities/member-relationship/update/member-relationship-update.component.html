@@ -1,0 +1,107 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-member-relationship-heading"
+        data-cy="MemberRelationshipCreateUpdateHeading"
+        jhiTranslate="genealogyManagementSystemApp.memberRelationship.home.createOrEditLabel"
+      >
+        Create or edit a Member Relationship
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="text" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label
+            class="form-label"
+            jhiTranslate="genealogyManagementSystemApp.memberRelationship.relationshipName"
+            for="field_relationshipName"
+            >Relationship Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="relationshipName"
+            id="field_relationshipName"
+            data-cy="relationshipName"
+            formControlName="relationshipName"
+          />
+          <div
+            *ngIf="
+              editForm.get('relationshipName')!.invalid &&
+              (editForm.get('relationshipName')!.dirty || editForm.get('relationshipName')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('relationshipName')?.errors?.required"
+              jhiTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="genealogyManagementSystemApp.memberRelationship.fromMember" for="field_fromMember"
+            >From Member</label
+          >
+          <select
+            class="form-control"
+            id="field_fromMember"
+            data-cy="fromMember"
+            name="fromMember"
+            formControlName="fromMember"
+            [compareWith]="compareFamilyMember"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="FamilyMemberOption" *ngFor="let FamilyMemberOption of familyMembersSharedCollection">
+              {{ FamilyMemberOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="genealogyManagementSystemApp.memberRelationship.toMember" for="field_toMember"
+            >To Member</label
+          >
+          <select
+            class="form-control"
+            id="field_toMember"
+            data-cy="toMember"
+            name="toMember"
+            formControlName="toMember"
+            [compareWith]="compareFamilyMember"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="FamilyMemberOption" *ngFor="let FamilyMemberOption of familyMembersSharedCollection">
+              {{ FamilyMemberOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

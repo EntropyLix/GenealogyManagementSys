@@ -1,0 +1,26 @@
+{
+  "genealogyManagementSystemApp": {
+    "memberRelationship": {
+      "home": {
+        "title": "Member Relationships",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Member Relationship",
+        "createOrEditLabel": "Create or edit a Member Relationship",
+        "notFound": "No Member Relationships found"
+      },
+      "created": "A new Member Relationship is created with identifier {{ param }}",
+      "updated": "A Member Relationship is updated with identifier {{ param }}",
+      "deleted": "A Member Relationship is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Member Relationship {{ id }}?"
+      },
+      "detail": {
+        "title": "Member Relationship"
+      },
+      "id": "ID",
+      "relationshipName": "Relationship Name",
+      "fromMember": "From Member",
+      "toMember": "To Member"
+    }
+  }
+}

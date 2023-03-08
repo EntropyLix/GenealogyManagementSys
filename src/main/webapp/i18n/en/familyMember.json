@@ -1,0 +1,31 @@
+{
+  "genealogyManagementSystemApp": {
+    "familyMember": {
+      "home": {
+        "title": "Family Members",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Family Member",
+        "createOrEditLabel": "Create or edit a Family Member",
+        "notFound": "No Family Members found"
+      },
+      "created": "A new Family Member is created with identifier {{ param }}",
+      "updated": "A Family Member is updated with identifier {{ param }}",
+      "deleted": "A Family Member is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Family Member {{ id }}?"
+      },
+      "detail": {
+        "title": "Family Member"
+      },
+      "id": "ID",
+      "name": "Name",
+      "gender": "Gender",
+      "age": "Age",
+      "address": "Address",
+      "birthDate": "Birth Date",
+      "family": "Family",
+      "fromMember": "From Member",
+      "toMember": "To Member"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="memberRelationship">
+      <h2 data-cy="memberRelationshipDetailsHeading">
+        <span jhiTranslate="genealogyManagementSystemApp.memberRelationship.detail.title">Member Relationship</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ memberRelationship.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.memberRelationship.relationshipName">Relationship Name</span></dt>
+        <dd>
+          <span>{{ memberRelationship.relationshipName }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.memberRelationship.fromMember">From Member</span></dt>
+        <dd>
+          <div *ngIf="memberRelationship.fromMember">
+            <a [routerLink]="['/family-member', memberRelationship.fromMember.id, 'view']">{{ memberRelationship.fromMember.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.memberRelationship.toMember">To Member</span></dt>
+        <dd>
+          <div *ngIf="memberRelationship.toMember">
+            <a [routerLink]="['/family-member', memberRelationship.toMember.id, 'view']">{{ memberRelationship.toMember.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/member-relationship', memberRelationship.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
