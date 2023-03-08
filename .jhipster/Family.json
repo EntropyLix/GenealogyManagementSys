@@ -1,0 +1,45 @@
+{
+  "changelogDate": "20230208124838",
+  "dto": "no",
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "familyName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "ispublic",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Family",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "FamilyMember",
+      "ownerSide": true,
+      "relationshipId": 1,
+      "relationshipName": "member",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "family",
+      "otherEntityName": "HvAuth",
+      "relationshipId": 2,
+      "relationshipName": "auth",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

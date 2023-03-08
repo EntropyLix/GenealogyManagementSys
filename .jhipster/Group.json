@@ -1,0 +1,41 @@
+{
+  "changelogDate": "20230212132822",
+  "dto": "no",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    }
+  ],
+  "name": "Group",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "group",
+      "ownerSide": true,
+      "relationshipName": "member",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "familyName",
+      "otherEntityName": "family",
+      "otherEntityRelationshipName": "readGroup",
+      "ownerSide": true,
+      "relationshipName": "read",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "familyName",
+      "otherEntityName": "family",
+      "otherEntityRelationshipName": "writeGroup",
+      "ownerSide": true,
+      "relationshipName": "write",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

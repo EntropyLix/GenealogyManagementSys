@@ -1,0 +1,65 @@
+{
+  "changelogDate": "20230208124838",
+  "dto": "no",
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "gender",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "age",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "birthDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "FamilyMember",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "Family",
+      "relationshipId": 3,
+      "relationshipName": "family",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "toMember",
+      "otherEntityName": "MemberRelationship",
+      "relationshipId": 1,
+      "relationshipName": "fromMember",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "fromMember",
+      "otherEntityName": "MemberRelationship",
+      "relationshipId": 2,
+      "relationshipName": "toMember",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

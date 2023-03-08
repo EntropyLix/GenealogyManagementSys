@@ -1,0 +1,318 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.inputs {
+  width: 65rem;
+}
+
+.cut-line {
+  width: 50rem;
+  border-top: 3px solid;
+  border-radius: 25px;
+  margin: 1rem auto;
+}
+
+:host ::ng-deep {
+  .p-tooltip-text {
+    text-shadow: 5px 5px 5px #00000082;
+    box-shadow: 5px 5px 5px #00000082;
+  }
+
+  .nodata-div {
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    .detail-nodata-content {
+      align-content: center;
+      display: grid;
+    }
+  }
+
+  .detail-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e5191999;
+    text-shadow: 5px 5px 5px rgb(0 0 0 / 32%);
+  }
+
+  .p-speeddial {
+    .p-button {
+      transition: all 1s;
+      border-radius: 25px;
+    }
+
+    .p-button:hover {
+      background-color: #c9df16;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      text-shadow: 5px 5px 5px #00000082;
+      box-shadow: 5px 5px 5px #00000085;
+    }
+
+    .p-speeddial-action {
+      box-shadow: 5px 5px 5px #00000085;
+    }
+  }
+
+  .dialog-content {
+    position: relative;
+
+    .p-speeddial-direction-up {
+      &.speeddial-left {
+        left: 0;
+        bottom: 0;
+      }
+
+      &.speeddial-right {
+        right: 0;
+        bottom: 0;
+      }
+    }
+
+    .p-speeddial-circle {
+      top: calc(50% - 2rem);
+      left: calc(50% - 2rem);
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .p-speeddial-semi-circle {
+      &.p-speeddial-direction-up {
+        left: calc(50% - 2rem);
+        bottom: 0;
+      }
+
+      &.p-speeddial-direction-down {
+        left: calc(50% - 2rem);
+        top: 0;
+      }
+
+      &.p-speeddial-direction-left {
+        right: 0;
+        top: calc(50% - 2rem);
+      }
+
+      &.p-speeddial-direction-right {
+        left: 0;
+        top: calc(50% - 2rem);
+      }
+    }
+
+    .p-speeddial-quarter-circle {
+      &.p-speeddial-direction-up-left {
+        right: 0;
+        bottom: 0;
+      }
+
+      &.p-speeddial-direction-up-right {
+        left: 0;
+        bottom: 0;
+      }
+
+      &.p-speeddial-direction-down-left {
+        right: 0;
+        top: 0;
+      }
+
+      &.p-speeddial-direction-down-right {
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+
+  .edit-form {
+    flex-direction: column;
+    margin: 2rem;
+
+    .p-float-label {
+      width: 100%;
+      text-align: center;
+
+      .edit-input {
+        width: 60%;
+        transition: all 1s;
+      }
+
+      .edit-input:focus {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 5px 5px 5px #00000070;
+      }
+    }
+  }
+
+  .p-autocomplete {
+    justify-content: center;
+    width: 100%;
+  }
+
+  #edit-dialog {
+    .p-dialog-title {
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: initial;
+      letter-spacing: 3px;
+      text-shadow: 5px 5px 5px #00000082;
+    }
+  }
+
+  .detail-button {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+    height: 2.5rem;
+    width: 151px;
+    text-align: center;
+    transition: all 1s;
+  }
+
+  .detail-button:hover {
+    width: 12rem !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    text-shadow: 5px 5px 5px #00000082;
+    box-shadow: 5px 5px 5px #00000085 !important;
+  }
+
+  .submit-button {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    align-content: center;
+    height: 2.5rem;
+    width: 20rem;
+    text-align: center;
+    transition: all 1s;
+  }
+
+  .submit-button:hover {
+    width: 30rem !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    text-shadow: 5px 5px 5px #00000082;
+    box-shadow: 5px 5px 5px #00000085 !important;
+  }
+
+  .text-shadow {
+    text-shadow: 5px 5px 5px #00000082;
+  }
+
+  .right-border {
+    border-right: 2px #00000047 solid;
+  }
+
+  .list-item {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .p-virtualscroller-item {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    padding-top: 3rem;
+  }
+
+  .list-content {
+    flex-direction: column;
+  }
+
+  .detail-line {
+    border-top: 3px solid;
+    margin: 1rem 3rem;
+  }
+
+  .search-icon {
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 1s;
+  }
+
+  .search-icon:hover {
+    font-size: 4rem;
+    top: -10px;
+    right: -5px;
+    text-shadow: 5px 5px 5px #0006;
+  }
+
+  .search-input {
+    border-radius: 25px;
+    box-shadow: 5px 5px 5px #0006;
+  }
+
+  .p-card {
+    box-shadow: 5px 5px 5px #0006;
+  }
+
+  .p-card-content {
+    position: relative;
+  }
+
+  #blockUI {
+    width: 100%;
+    z-index: 10000;
+    position: absolute;
+    flex-direction: column;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    transition: all 1s;
+    background-color: #a7a2a270;
+    border-radius: 25px;
+    box-shadow: 10px 7px 8px #8a858570;
+  }
+
+  .no-data {
+    font-size: 5rem;
+    text-shadow: 5px 5px 5px #0006;
+  }
+
+  .member-detail {
+    text-shadow: 5px 5px 5px #0006;
+  }
+
+  .blocked-hide {
+    height: 0;
+    bottom: 0;
+    animation: hiden 1s ease-in-out;
+  }
+
+  .blocked-show {
+    height: 100%;
+    animation: shown 1s ease-in-out;
+  }
+
+  @keyframes shown {
+    0% {
+      height: 0vh;
+    }
+
+    100% {
+      height: 100%;
+    }
+  }
+
+  @keyframes hiden {
+    0% {
+      height: 100%;
+    }
+
+    100% {
+      height: 0;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="familyMember">
+      <h2 data-cy="familyMemberDetailsHeading">
+        <span jhiTranslate="genealogyManagementSystemApp.familyMember.detail.title">Family Member</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ familyMember.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.name">Name</span></dt>
+        <dd>
+          <span>{{ familyMember.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.gender">Gender</span></dt>
+        <dd>
+          <span>{{ familyMember.gender }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.age">Age</span></dt>
+        <dd>
+          <span>{{ familyMember.age }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.address">Address</span></dt>
+        <dd>
+          <span>{{ familyMember.address }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ familyMember.birthDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.family">Family</span></dt>
+        <dd>
+          <div *ngIf="familyMember.family">
+            <a [routerLink]="['/family', familyMember.family.id, 'view']">{{ familyMember.family.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.fromMember">From Member</span></dt>
+        <dd>
+          <div *ngIf="familyMember.fromMember">
+            <a [routerLink]="['/member-relationship', familyMember.fromMember.id, 'view']">{{ familyMember.fromMember.toMember }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.familyMember.toMember">To Member</span></dt>
+        <dd>
+          <div *ngIf="familyMember.toMember">
+            <a [routerLink]="['/member-relationship', familyMember.toMember.id, 'view']">{{ familyMember.toMember.fromMember }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/family-member', familyMember.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,307 @@
+<div class="main">
+  <div class="text-center">
+    <h1 class="display-4">U Can Maintain the Genealogy On This Page</h1>
+  </div>
+  <hr class="cut-line" />
+  <br />
+  <form name="searchForm" class="text-center" role="form" novalidate [formGroup]="searchForm">
+    <span class="p-input-icon-right inputs">
+      <i class="pi pi-search search-icon" (click)="search()"></i>
+      <input
+        type="text"
+        class="form-control text-center search-input"
+        placeholder="Insert the genealogy name to search"
+        formControlName="searchName"
+        pInputText
+      />
+    </span>
+  </form>
+  <p-card>
+    <div id="blockUI" class="blocked-show">
+      <h1 class="text-center no-data"><strong>No Data Yet</strong></h1>
+    </div>
+    <h5>Genealogy List</h5>
+    <p-virtualScroller [value]="families" scrollHeight="500px" [itemSize]="100">
+      <ng-template pTemplate="header">
+        <div class="flex align-items-center justify-content-center gap-3 flex-wrap">
+          <p-dropdown
+            [options]="sortOptions"
+            [(ngModel)]="sortKey"
+            placeholder="Sort By"
+            (onChange)="onSortChange()"
+            [style]="{ 'min-width': '10em' }"
+          ></p-dropdown>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="item" let-family let-i="index">
+        <div class="flex align-items-center justify-content-center list-item">
+          <br />
+          <div class="col-lg-2 text-center right-border">
+            <h1>
+              <strong>{{ family.index }}</strong>
+            </h1>
+          </div>
+          <div class="col-lg-4 flex align-items-center justify-content-center list-content">
+            <span>Family Name</span>
+            <span class="text-shadow">
+              <h2>
+                <strong>{{ family.familyName }}</strong>
+              </h2>
+            </span>
+          </div>
+          <div class="col-lg-4 flex align-items-center justify-content-center list-content right-border">
+            <span>Family Description</span>
+            <span class="text-shadow">
+              <h2>
+                <strong>{{ family.description }}</strong>
+              </h2>
+            </span>
+          </div>
+          <div class="col-lg-2 text-center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-search"
+              (click)="showDetailTopology(family)"
+              class="p-button-rounded detail-button"
+            >
+              &nbsp;&nbsp;Show Detail
+            </button>
+          </div>
+        </div>
+        <hr />
+      </ng-template>
+      <ng-template let-product pTemplate="loadingItem"> Loading... </ng-template>
+    </p-virtualScroller>
+  </p-card>
+</div>
+
+<p-toast position="top-center" [baseZIndex]="1000020"></p-toast>
+
+<p-dialog
+  header="Genealogy Detail"
+  [(visible)]="dialogDisplay"
+  [modal]="true"
+  (onHide)="detailDisplay = false"
+  [blockScroll]="true"
+  [dismissableMask]="true"
+  [baseZIndex]="100007"
+  [style]="{ width: '50vw' }"
+>
+  <div #dialog class="dialog-content">
+    <div *ngIf="!!nodes?.length; then datadiv; else nodatadiv"></div>
+    <ng-template #datadiv>
+      <div *ngIf="!!chart" [chart]="chart"></div>
+    </ng-template>
+    <ng-template #nodatadiv>
+      <div class="nodata-div">
+        <h1 class="text-center no-data detail-nodata-content"><strong>No Data Yet</strong></h1>
+      </div>
+    </ng-template>
+
+    <p-sidebar
+      [(visible)]="detailDisplay"
+      position="right"
+      [modal]="false"
+      [transitionOptions]="'450ms cubic-bezier(0, 0, 0.2, 1)'"
+      [appendTo]="dialog"
+      [style]="{ width: '18vw' }"
+      [baseZIndex]="100008"
+    >
+      <h1 class="member-detail text-center">Member Details</h1>
+      <hr class="detail-line" />
+      <div *ngIf="!!detail">
+        <p-table [value]="detail">
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <th colspan="1">{{ item[0] }}</th>
+              <div *ngIf="item[0] === 'createdDate' || item[0] === 'birthDate'; then date; else normal"></div>
+              <ng-template #normal>
+                <td colspan="3">{{ item[1] }}</td>
+              </ng-template>
+              <ng-template #date>
+                <div *ngIf="item[0] === 'createdDate'; then create; else birth"></div>
+                <ng-template #create>
+                  <td colspan="3">{{ item[1] | date: 'yyyy-MM-dd HH:mm:d' }}</td>
+                </ng-template>
+                <ng-template #birth>
+                  <td colspan="3">{{ item[1] | date: 'yyyy-MM-dd' }}</td>
+                </ng-template>
+              </ng-template>
+            </tr>
+          </ng-template>
+        </p-table>
+        <br />
+        <button
+          pButton
+          pRipple
+          *ngIf="checkCanWrite(familyId)"
+          type="button"
+          icon="pi pi-pencil"
+          (click)="openEditDialog()"
+          class="p-button-rounded detail-button p-button-success"
+        >
+          &nbsp;&nbsp;Edit
+        </button>
+        <br />
+        <button
+          pButton
+          pRipple
+          *ngIf="checkCanWrite(familyId)"
+          type="button"
+          icon="pi pi-trash"
+          (click)="confirmDelete(detail)"
+          class="p-button-rounded detail-button p-button-danger"
+        >
+          &nbsp;&nbsp;Delete
+        </button>
+      </div>
+    </p-sidebar>
+    <p-speedDial
+      [model]="dialItems"
+      [radius]="150"
+      direction="up-right"
+      buttonClassName="p-button-success"
+      type="quarter-circle"
+    ></p-speedDial>
+  </div>
+</p-dialog>
+
+<p-confirmDialog
+  header="Confirmation Delete"
+  icon="pi pi-exclamation-triangle"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="1000010"
+></p-confirmDialog>
+
+<p-dialog
+  header="Familiy Member Maintain"
+  id="edit-dialog"
+  [(visible)]="editlDisplay"
+  [modal]="true"
+  [blockScroll]="true"
+  [dismissableMask]="true"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="1000011"
+>
+  <form name="editForm" role="form" novalidate [formGroup]="editForm">
+    <div class="edit-form flex flex align-items-center justify-content-center">
+      <span class="p-float-label">
+        <input type="text" class="edit-input" id="inputname" pInputText formControlName="name" required="true" />
+        <label for="inputname">Name</label>
+      </span>
+      <br />
+      <br />
+      <span class="p-float-label">
+        <input type="text" class="edit-input" id="inputgender" pInputText formControlName="gender" required="true" />
+        <label for="inputgender">Gender</label>
+      </span>
+      <br />
+      <br />
+      <span class="p-float-label">
+        <input type="number" class="edit-input" id="inputage" pInputText formControlName="age" required="true" />
+        <label for="inputage">Age</label>
+      </span>
+      <br />
+      <br />
+      <span class="p-float-label">
+        <input type="text" class="edit-input" id="inputaddress" pInputText formControlName="address" required="true" />
+        <label for="inputaddress">Address</label>
+      </span>
+      <br />
+      <br />
+      <span class="p-float-label">
+        <input
+          type="date"
+          class="edit-input"
+          placeholder=" 111"
+          id="inputbirthDate"
+          pInputText
+          formControlName="birthDate"
+          required="true"
+        />
+        <label for="inputbirthDate">Birth Date</label>
+      </span>
+      <br />
+      <hr class="cut-line" />
+      <br />
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-check"
+        (click)="submit()"
+        [disabled]="editForm.invalid"
+        class="p-button-rounded submit-button"
+      >
+        &nbsp;&nbsp;Submit
+      </button>
+    </div>
+  </form>
+</p-dialog>
+<p-dialog
+  header="Create Relationship"
+  [(visible)]="relationshipDisplay"
+  [modal]="true"
+  [blockScroll]="true"
+  [dismissableMask]="true"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="1000011"
+>
+  <form name="relationForm" role="form" novalidate [formGroup]="relationForm">
+    <div class="edit-form flex align-items-center justify-content-center">
+      <span class="p-float-label">
+        <p-autoComplete
+          formControlName="fromId"
+          inputId="inputFrom"
+          inputStyleClass="edit-input"
+          field="label"
+          [suggestions]="tempMembers"
+          [required]="true"
+          value="value"
+          (completeMethod)="autoComplete($event)"
+        ></p-autoComplete>
+        <label for="inputFrom">From Member Name</label>
+      </span>
+      <br />
+      <br />
+      <span class="p-float-label">
+        <p-autoComplete
+          formControlName="toId"
+          inputId="toFrom"
+          inputStyleClass="edit-input"
+          field="label"
+          [required]="true"
+          [suggestions]="tempMembers"
+          value="value"
+          (completeMethod)="autoComplete($event)"
+        ></p-autoComplete>
+        <label for="toFrom">To Member Name</label>
+      </span>
+      <br />
+      <br />
+      <span class="p-float-label">
+        <input type="text" class="edit-input" id="inputrelationshipName" pInputText formControlName="relationshipName" required="true" />
+        <label for="inputrelationshipName">Relationship Name</label>
+      </span>
+      <br />
+      <br />
+
+      <br />
+      <hr class="cut-line" />
+      <br />
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-check"
+        (click)="createRlationship()"
+        [disabled]="relationForm.invalid || tempMembers.length < 1"
+        class="p-button-rounded submit-button"
+      >
+        &nbsp;&nbsp;Submit
+      </button>
+    </div>
+  </form>
+</p-dialog>

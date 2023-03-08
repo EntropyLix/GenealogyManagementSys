@@ -1,0 +1,36 @@
+{
+  "changelogDate": "20230208124838",
+  "dto": "no",
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "relationshipName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MemberRelationship",
+  "pagination": "infinite-scroll",
+  "relationships": [
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "FamilyMember",
+      "ownerSide": true,
+      "relationshipId": 1,
+      "relationshipName": "fromMember",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "id",
+      "otherEntityName": "FamilyMember",
+      "ownerSide": true,
+      "relationshipId": 2,
+      "relationshipName": "toMember",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

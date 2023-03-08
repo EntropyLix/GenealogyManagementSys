@@ -1,0 +1,93 @@
+<div>
+  <h2 id="page-heading" data-cy="FamilyHeading">
+    <span jhiTranslate="genealogyManagementSystemApp.family.home.title">Families</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="genealogyManagementSystemApp.family.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-family"
+        [routerLink]="['/family/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="genealogyManagementSystemApp.family.home.createLabel"> Create a new Family </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="families?.length === 0">
+    <span jhiTranslate="genealogyManagementSystemApp.family.home.notFound">No Families found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="families && families.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col">
+            <div class="d-flex">
+              <span></span>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="familyName">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.family.familyName">Family Name</span>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="description">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.family.description">Description</span>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let family of families; trackBy: trackId; let i = index" data-cy="entityTable">
+          <td>
+            <h3>{{ i + 1 }}</h3>
+          </td>
+          <td>{{ family.familyName }}</td>
+          <td>{{ family.description }}</td>
+          <td class="text-end">
+            <div *ngIf="checkCanWrite(family); then edit; else noauth"></div>
+            <ng-template #edit>
+              <div class="btn-group">
+                <button
+                  type="submit"
+                  [routerLink]="['/family', family.id, 'edit']"
+                  class="btn btn-primary btn-sm"
+                  data-cy="entityEditButton"
+                >
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="submit" (click)="delete(family)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </ng-template>
+            <ng-template #noauth>
+              <label> Sorry, u hv no auth to modify</label>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

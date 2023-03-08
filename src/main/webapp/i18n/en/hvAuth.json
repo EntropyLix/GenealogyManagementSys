@@ -1,0 +1,26 @@
+{
+  "genealogyManagementSystemApp": {
+    "hvAuth": {
+      "home": {
+        "title": "Hv Auths",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Hv Auth",
+        "createOrEditLabel": "Create or edit a Hv Auth",
+        "notFound": "No Hv Auths found"
+      },
+      "created": "A new Hv Auth is created with identifier {{ param }}",
+      "updated": "A Hv Auth is updated with identifier {{ param }}",
+      "deleted": "A Hv Auth is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Hv Auth {{ id }}?"
+      },
+      "detail": {
+        "title": "Hv Auth"
+      },
+      "id": "ID",
+      "authType": "Auth Type",
+      "user": "User",
+      "family": "Family"
+    }
+  }
+}

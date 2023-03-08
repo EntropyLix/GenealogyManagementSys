@@ -1,0 +1,1 @@
+neo4j-admin load --from=xxxxx\neo4jdb\initdata\neo4j.db --database=neo4j --force

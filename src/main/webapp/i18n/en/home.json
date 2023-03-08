@@ -1,0 +1,9 @@
+{
+  "home": {
+    "title": "Welcome, Manager!",
+    "subtitle": "Here is the Genealogy Management System, u can start ur maintain",
+    "logged": {
+      "message": "Welcome back  \"{{username}}\"."
+    }
+  }
+}

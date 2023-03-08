@@ -1,0 +1,154 @@
+<div>
+  <h2 id="page-heading" data-cy="FamilyMemberHeading">
+    <span jhiTranslate="genealogyManagementSystemApp.familyMember.home.title">Family Members</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="genealogyManagementSystemApp.familyMember.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-family-member"
+        [routerLink]="['/family-member/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="genealogyManagementSystemApp.familyMember.home.createLabel"> Create a new Family Member </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="familyMembers?.length === 0">
+    <span jhiTranslate="genealogyManagementSystemApp.familyMember.home.notFound">No Family Members found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="familyMembers && familyMembers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.name">Name</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="gender">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.gender">Gender</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="age">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.age">Age</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="address">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.address">Address</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="birthDate">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.birthDate">Birth Date</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="family.id">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.family">Family</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fromMember.toMember">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.fromMember">From Member</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="toMember.fromMember">
+            <div class="d-flex">
+              <span jhiTranslate="genealogyManagementSystemApp.familyMember.toMember">To Member</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody
+        infinite-scroll
+        (scrolled)="loadPage(page + 1)"
+        [infiniteScrollDisabled]="page - 1 >= links['last']"
+        [infiniteScrollDistance]="0"
+      >
+        <tr *ngFor="let familyMember of familyMembers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/family-member', familyMember.id, 'view']">{{ familyMember.id }}</a>
+          </td>
+          <td>{{ familyMember.name }}</td>
+          <td>{{ familyMember.gender }}</td>
+          <td>{{ familyMember.age }}</td>
+          <td>{{ familyMember.address }}</td>
+          <td>{{ familyMember.birthDate | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="familyMember.family">
+              <a [routerLink]="['/family', familyMember.family.id, 'view']">{{ familyMember.family.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="familyMember.fromMember">
+              <a [routerLink]="['/member-relationship', familyMember.fromMember.id, 'view']">{{ familyMember.fromMember.toMember }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="familyMember.toMember">
+              <a [routerLink]="['/member-relationship', familyMember.toMember.id, 'view']">{{ familyMember.toMember.fromMember }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/family-member', familyMember.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/family-member', familyMember.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(familyMember)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

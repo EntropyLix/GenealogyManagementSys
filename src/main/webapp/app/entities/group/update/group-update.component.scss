@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  .right-border {
+    border-right: 2px #00000047 solid;
+  }
+  .list-content {
+    flex-direction: column;
+  }
+  .text-shadow {
+    text-shadow: 5px 5px 5px #00000082;
+  }
+}

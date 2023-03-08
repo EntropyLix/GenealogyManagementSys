@@ -1,0 +1,69 @@
+.home-content {
+  box-shadow: 5px 5px 5px #00000082;
+  border-radius: 25px;
+  transition: all 2s;
+  height: 70vh;
+  color: #fff;
+  position: relative;
+}
+
+:host ::ng-deep {
+  .msg-div {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    flex-direction: column;
+    text-shadow: 5px 5px 5px #000;
+    h3 {
+      max-width: 70rem;
+    }
+  }
+  .cut-line {
+    width: 20rem;
+    border-top: 4px solid;
+    border-radius: 25px;
+    margin: 1rem auto;
+    border-color: #fff;
+  }
+  .ng-fa-icon {
+    font-size: 5rem;
+    transition: all 1s;
+  }
+  .p-dock-list-container {
+    background-color: #a5a1a147;
+    border-radius: 25px 25px 0 0;
+    a {
+      text-decoration: none;
+      color: #fff;
+      transition: all 1s;
+      overflow: visible;
+      h3 {
+        transition: all 1s;
+      }
+    }
+    a:hover {
+      text-decoration: none;
+      text-shadow: 5px 5px 5px #000;
+      background-color: #ffffff38;
+      color: #e4ff02b8;
+      border-radius: 25px;
+      .ng-fa-icon {
+        font-size: 7rem;
+        text-shadow: 5px 5px 5px #000;
+      }
+      h3 {
+        font-size: 3rem;
+      }
+    }
+    li {
+      margin: 0 2rem;
+    }
+    ul {
+      border-radius: 25px 25px 0 0;
+    }
+  }
+  .p-dock .p-dock-action {
+    width: 11rem;
+    height: 11rem;
+  }
+}

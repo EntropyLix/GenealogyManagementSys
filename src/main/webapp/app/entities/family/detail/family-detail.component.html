@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="family">
+      <h2 data-cy="familyDetailsHeading"><span jhiTranslate="genealogyManagementSystemApp.family.detail.title">Family</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ family.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.family.familyName">Family Name</span></dt>
+        <dd>
+          <span>{{ family.familyName }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.family.description">Description</span></dt>
+        <dd>
+          <span>{{ family.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.family.member">Member</span></dt>
+        <dd>
+          <span *ngFor="let member of family.members; let last = last">
+            <a [routerLink]="['/family-member', member.id, 'view']">{{ member.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/family', family.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

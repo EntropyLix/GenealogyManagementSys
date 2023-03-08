@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="group">
+      <h2 data-cy="groupDetailsHeading"><span jhiTranslate="genealogyManagementSystemApp.group.detail.title">Group</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ group.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.group.name">Name</span></dt>
+        <dd>
+          <span>{{ group.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.group.member">Member</span></dt>
+        <dd>
+          <span *ngFor="let member of group.members; let last = last"> {{ member.login }}{{ last ? '' : ', ' }} </span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.group.read">Read</span></dt>
+        <dd>
+          <span *ngFor="let read of group.reads; let last = last">
+            <a [routerLink]="['/family', read.id, 'view']">{{ read.familyName }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="genealogyManagementSystemApp.group.write">Write</span></dt>
+        <dd>
+          <span *ngFor="let write of group.writes; let last = last">
+            <a [routerLink]="['/family', write.id, 'view']">{{ write.familyName }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/group', group.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
